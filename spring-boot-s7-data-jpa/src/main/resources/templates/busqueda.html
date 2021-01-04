@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-10">
+				<h4 class="text-center mb-4">Buscar cliente por RFC</h4>
+				<div class="row justify-content-center">
+					<form th:action="@{/RFC}" th:object="${cliente}" method="get">
+						<div class="row ">
+
+
+
+							<div class="input-group mb-3">
+								<input type="text" th:field="*{RFC}" class="form-control"
+									aria-label="Recipient's username"
+									aria-describedby="button-addon2">
+									
+								<div class="input-group-append">
+									<button class="btn btn-success" type="submit"
+										id="button-addon2">Buscar</button>
+								</div>
+							</div>
+						</div>
+
+
+
+					</form>
+				</div>
+
+
+				<table class="table table-striped">
+					<thead class="bg-success">
+						<tr>
+							<th>RFC</th>
+							<th>Nombre</th>
+							<th>Edad</th>
+							<th>Ciudad</th>
+							<th class="text-center">Editar cliente</th>
+					<th class="text-center">Eliminar Cliente</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="data : ${clientePorRFC}">
+							<td th:text="${data.RFC}"></td>
+							<td th:text="${data.nombre}"></td>
+							<td th:text="${data.edad}"></td>
+							<td th:text="${data.idCiudad}"></td>
+							<td class="text-center"><a
+						class="btn btn-primary btn-xs shadow-sm"
+						th:href="@{/form/} + ${cliente.RFC}" th:text="'Editar'"></a></td>
+					<td class="text-center"><a
+						class="btn btn-danger btn-xs shadow-sm"
+						th:href="@{/eliminar/} + ${cliente.RFC}" th:text="'Eliminar'"
+						onclick="return confirm('Estas seguro que quiers eliminar este registro?');"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+
+		<h1
+			class="text-secondary border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+		<div class="row">
+			<div style="width: 2%"></div>
+			<a class="btn btn-success col-md-2 col-sm-4 shadow"
+				th:href="@{/form}">Agregar nuevo cliente</a>
+
+			<div class="col-7"></div>
+			<a class="btn btn-info text-center col-2 shadow"
+				th:href="@{/clienteform}">Buscar</a>
+
+
+		</div>
+		<br />
+
+		<table class="table table-striped table-bordered  shadow-sm">
+			<thead>
+				<tr>
+					<th class="text-center">RFC</th>
+					<th class="text-center">Nombre</th>
+					<th class="text-center">Edad</th>
+					<th class="text-center">ID de ciudad</th>
+					<th class="text-center">Editar cliente</th>
+					<th class="text-center">Eliminar Cliente</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente: ${clientes}">					
+					<td class="text-center" th:text="${cliente.getRFC()}"></td>
+					<td class="text-center" th:text="${cliente.getNombre()}"></td>
+					<td class="text-center" th:text="${cliente.getEdad()}"></td>
+					<td class="text-center" th:text="${cliente.getIdCiudad()}"></td>
+					<!-- td class="text-center" th:text="${cliente.incrementa()}"></td -->
+					<td class="text-center"><a
+						class="btn btn-primary btn-xs shadow-sm"
+						th:href="@{/form/} + ${cliente.RFC}" th:text="'Editar'"></a></td>
+					<td class="text-center"><a
+						class="btn btn-danger btn-xs shadow-sm"
+						th:href="@{/eliminar/} + ${cliente.RFC}" th:text="'Eliminar'"
+						onclick="return confirm('Estas seguro que quiers eliminar este registro?');"></a></td>
+				</tr>
+
+			</tbody>
+		</table>
+		<div class="row justify-content-center">
+			<nav th:replace="paginador :: paginador"></nav>
+		</div>
+
+
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
